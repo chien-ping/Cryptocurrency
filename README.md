@@ -10,17 +10,18 @@
 ## EndPoints
 | HTTP Method                                    | Description |
 |:-----------------------------------------------|:------------|
-| GET [ /v1/crypto/{crypto name} ](#加密貨幣匯率查詢)    | 加密貨幣匯率查詢    |
-| GET [ /v1/currency/{currency code} ](#幣別對應查詢)  | 幣別對應查詢      |
+| GET [ /v1/crypto/{crypto_name} ](#加密貨幣匯率查詢)    | 加密貨幣匯率查詢    |
+| GET [ /v1/currency/{currency_code} ](#幣別對應查詢)  | 幣別對應查詢      |
 | POST [ /v1/currency ](#新增幣別)                   | 新增幣別        |
-| PATCH [ /v1/currency/{currency code} ](#更新幣別)  | 更新幣別        |
-| DELETE [ /v1/currency/{currency code} ](#刪除幣別) | 刪除幣別        |
+| PATCH [ /v1/currency/{currency_code} ](#更新幣別)  | 更新幣別        |
+| DELETE [ /v1/currency/{currency_code} ](#刪除幣別) | 刪除幣別        |
 
 ### 加密貨幣匯率查詢
 #### 傳入參數說明
-| Attribute   | Necessary | Type | Description     |
-|:------------|:----------|:----|:----------------|
-| crypto name | Y         | String | 欲查詢加密貨幣         |
+#####  request url
+| Attribute   | Necessary | Type | Description         |
+|:------------|:----------|:----|:--------------------|
+| crypto_name | Y         | String | 加密貨幣名稱:<br/>bitcoin |
 
 ```
  http://localhost:8080/cryptocurrency/v1/crypto/bitcoin
@@ -28,15 +29,15 @@
 
 #### 回傳參數說明
 
-| Attribute     | Necessary  | Type | Description |
-|:--------------|:-----------|:----|:------------|
-| cryptoName    |            | String      | 加密貨幣名稱      |
-| updatedTime   |            | String      | 更新時間(台灣時間)  |
-| exchangeRates |            | json object | 匯率          |
-|               | code       | String | 貨幣代碼        |
-|               | nameZh     | String | 幣別中文名稱      |
-|               | rateFormat | String | 匯率          |
-|               | rate       | float | 匯率          |
+| Attribute     | Sub-attribute | Type | Description |
+|:--------------|:--------------|:----|:------------|
+| cryptoName    |               | String      | 加密貨幣名稱      |
+| updatedTime   |               | String      | 更新時間(台灣時間)  |
+| exchangeRates |               | json object | 匯率          |
+|               | code          | String | 貨幣代碼        |
+|               | nameZh        | String | 幣別中文名稱      |
+|               | rateFormat    | String | 匯率          |
+|               | rate          | float | 匯率          |
 
 ```
 {
@@ -68,9 +69,10 @@
 
 ### 幣別對應查詢
 #### 傳入參數說明
+#####  request url
 | Attribute     | Necessary | Type | Description   |
 |:--------------|:----------|:----|:--------------|
-| currency_code | N         | String | 欲查詢的幣別 |
+| currency_code | N         | String | 幣別 |
 
 ```
  http://localhost:8080/cryptocurrency/v1/currency
@@ -99,12 +101,14 @@
 ```
 ### 新增幣別
 #### 傳入參數說明
+##### request body
 | Attribute | Necessary | Type | Description |
 |:----------|:----------|:----|:------------|
 | code      | Y         | String | 幣別代碼        |
 | nameZh    | Y         | String | 幣別中文名稱      |
 
 ```
+ 
 {
         "code": "GBP",
         "nameZh": "英鎊"
@@ -127,12 +131,23 @@
 ```
 ### 更新幣別
 #### 傳入參數說明
-| Attribute | Necessary | Type | Description |
-|:----------|:----------|:----|:------------|
+#####  request url
+
+| Attribute     | Necessary | Type | Description |
+|:--------------|:----------|:----|:------------|
+| currency_code | Y         | String | 幣別代碼        |
+
+```
+http://localhost:8080/cryptocurrency/v1/currency/GBP
+```
+##### request body
+| Attribute     | Necessary | Type | Description |
+|:--------------|:----------|:----|:------------|
 | code      | Y         | String | 幣別代碼        |
 | nameZh    | Y         | String | 幣別中文名稱      |
 
 ```
+ 
 {
         "code": "GBP",
         "nameZh": "英鎊"
@@ -158,9 +173,10 @@
 
 ### 刪除幣別
 #### 傳入參數說明
-| Attribute | Necessary | Type | Description |
-|:----------|:----------|:----|:------------|
-| code      | N         | String | 欲刪除的幣別      |
+#####  request url
+| Attribute     | Necessary | Type | Description |
+|:--------------|:----------|:----|:------------|
+| currency_code | Y         | String | 幣別代碼        |
 
 ```
 http://localhost:8080/cryptocurrency/v1/currency/GBP
